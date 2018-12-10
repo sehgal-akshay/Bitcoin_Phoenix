@@ -1,0 +1,29 @@
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+    <h1>Hello</h1>
+    <select id = "selectNumber">
+    </select>
+    <h2><%= @miners %></h2>
+    
+    <%# <script>
+    var options = ["1", "2", "3", "4", "5"];
+$('#select').empty();
+$.each(options, function(i, p) {
+    $('#select').append($('<option></option>').val(p).html(p));
+});
+</script> %>
+<script>
+var select = document.getElementById("selectNumber"); 
+var options = ["1", "2", "3", "4", "5"]; 
+
+// Optional: Clear all existing options first:
+select.innerHTML = "";
+// Populate list with options:
+for(var i = 0; i < options.length; i++) {
+    var opt = options[i];
+    select.innerHTML += "<option value=\"" + opt + "\">" + opt + "</option>";
+}
+</script>
+</head>

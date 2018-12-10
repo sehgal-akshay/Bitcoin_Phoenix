@@ -1,0 +1,66 @@
+<section class="phx-hero">
+  <h1><%= gettext "Welcome to %{name}!", name: "Mint Coin Users Details" %></h1>
+  <%# <p>A productive web framework that<br/>does not compromise speed and maintainability.</p> %>
+</section>
+
+<section>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+    <h1>Hello</h1>
+    <select id = "selectNumber">
+    </select>
+    <h2><%= @users %></h2>
+    
+    <%# <script>
+    var options = ["1", "2", "3", "4", "5"];
+$('#select').empty();
+$.each(options, function(i, p) {
+    $('#select').append($('<option></option>').val(p).html(p));
+});
+</script> %>
+<script>
+var select = document.getElementById("selectNumber"); 
+var options = ["1", "2", "3", "4", "5"]; 
+
+// Optional: Clear all existing options first:
+select.innerHTML = "";
+// Populate list with options:
+for(var i = 0; i < options.length; i++) {
+    var opt = options[i];
+    select.innerHTML += "<option value=\"" + opt + "\">" + opt + "</option>";
+}
+</script>
+</head>
+</section>
+<%# <section class="row">
+  <article class="column">
+    <h2>Resources</h2>
+    <ul>
+      <li>
+        <a href="https://hexdocs.pm/phoenix/overview.html">Guides &amp; Docs</a>
+      </li>
+      <li>
+        <a href="https://github.com/phoenixframework/phoenix">Source</a>
+      </li>
+      <li>
+        <a href="https://github.com/phoenixframework/phoenix/blob/v1.4/CHANGELOG.md">v1.4 Changelog</a>
+      </li>
+    </ul>
+  </article>
+  <article class="column">
+    <h2>Help</h2>
+    <ul>
+      <li>
+        <a href="https://elixirforum.com/c/phoenix-forum">Forum</a>
+      </li>
+      <li>
+        <a href="https://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on Freenode IRC</a>
+      </li>
+      <li>
+        <a href="https://twitter.com/elixirphoenix">Twitter @elixirphoenix</a>
+      </li>
+    </ul>
+  </article>
+</section> %>
