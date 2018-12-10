@@ -1,66 +1,69 @@
-<section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "Mint Coin Users Details" %></h1>
-  <%# <p>A productive web framework that<br/>does not compromise speed and maintainability.</p> %>
-</section>
-
-<section>
+<html>
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<title>Mint Coin Web UI</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 10;
+      border-radius: 5;
+    }
     
-    
-    <h1>Hello</h1>
-    <select id = "selectNumber">
-    </select>
-    <h2><%= @users %></h2>
-    
-    <%# <script>
-    var options = ["1", "2", "3", "4", "5"];
-$('#select').empty();
-$.each(options, function(i, p) {
-    $('#select').append($('<option></option>').val(p).html(p));
-});
-</script> %>
-<script>
-var select = document.getElementById("selectNumber"); 
-var options = '<%= @users %>'; 
-
-// Optional: Clear all existing options first:
-select.innerHTML = "";
-// Populate list with options:
-for(var i = 0; i < options.length; i++) {
-    var opt = options[i];
-    select.innerHTML += "<option value=\"" + opt + "\">" + opt + "</option>";
-}
-</script>
+  </style>
 </head>
-</section>
-<%# <section class="row">
-  <article class="column">
-    <h2>Resources</h2>
-    <ul>
-      <li>
-        <a href="https://hexdocs.pm/phoenix/overview.html">Guides &amp; Docs</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix/blob/v1.4/CHANGELOG.md">v1.4 Changelog</a>
-      </li>
-    </ul>
-  </article>
-  <article class="column">
-    <h2>Help</h2>
-    <ul>
-      <li>
-        <a href="https://elixirforum.com/c/phoenix-forum">Forum</a>
-      </li>
-      <li>
-        <a href="https://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on Freenode IRC</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">Twitter @elixirphoenix</a>
-      </li>
-    </ul>
-  </article>
-</section> %>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a  class="navbar-brand" href="">Welcome to Mint Coin Users Details Screen</a>
+    </div>
+  </div>
+</nav>
+
+
+<div>
+  <p id = "head" hidden>asdasd</p>
+</div>
+
+<div class="form-group">
+  <label for="selectNumber">Select the User Name: </label>
+  <select class="form-control" id="selectNumber" onchange=myFunction()>
+  </select>
+</div>
+
+<script>
+            var select = document.getElementById("selectNumber"); 
+            var options = new Array();
+            options = '<%= @users %>'; 
+
+            // Optional: Clear all existing options first:
+            select.innerHTML = "";
+            // Populate list with options:
+            for(var i = 0; i < options.length; i++) {
+                var opt = options[i];
+                select.innerHTML += "<option value=\"" + opt + "\">" + opt + "</option>";
+            }
+
+            function myFunction() {
+                var x = document.getElementById("selectNumber").value;
+                //document.getElementById("demo").innerHTML = "You selected: " + x;
+                document.getElementById("head").hidden = false;
+                document.getElementById("head").innerHTML = "Welcome User " + x;
+                document.getElementById("section").hidden = false;
+            }
+            </script>
+
+<div id = "section" hidden>
+      <%# <input class="form-control mr-sm-2" type="search" placeholder="Enter User ID" aria-label="Search"> %>
+      <button  id = "firstButton">Show Wallet Balance</button>
+      <button>Do Transaction</button>
+      <button>Search</button>
+</div>
+
+</head>
+</html>
