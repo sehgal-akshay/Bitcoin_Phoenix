@@ -22,7 +22,7 @@ $.each(options, function(i, p) {
 </script> %>
 <script>
 var select = document.getElementById("selectNumber"); 
-var options = '<%= @users %>'; 
+var options = <%= @users %>; 
 
 // Optional: Clear all existing options first:
 select.innerHTML = "";

@@ -25,9 +25,9 @@
                         'Elixir.BlockchainWeb.UserView',
                         'Elixir.DigitalSignature','Elixir.HashGenerator',
                         'Elixir.Initializer','Elixir.Node',
-                        'Elixir.NodeCoordinator','Elixir.NodeSupervisor',
-                        'Elixir.ProcessRegistry','Elixir.SysConfigs',
-                        'Elixir.Transaction']},
+                        'Elixir.NodeCoordinator','Elixir.NodeHelper',
+                        'Elixir.NodeSupervisor','Elixir.ProcessRegistry',
+                        'Elixir.SysConfigs','Elixir.Transaction']},
               {registered,[]},
               {vsn,"0.1.0"},
               {mod,{'Elixir.Blockchain.Application',[]}}]}.

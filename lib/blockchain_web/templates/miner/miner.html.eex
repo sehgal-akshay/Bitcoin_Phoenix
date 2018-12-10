@@ -11,7 +11,7 @@
     <h1>Hello</h1>
     <select id = "selectNumber">
     </select>
-    <h2><%= @users %></h2>
+    <h2><%= @miners %></h2>
     
     <%# <script>
     var options = ["1", "2", "3", "4", "5"];
@@ -22,7 +22,7 @@ $.each(options, function(i, p) {
 </script> %>
 <script>
 var select = document.getElementById("selectNumber"); 
-var options = '<%= @users %>'; 
+var options = '<%= @miners %>'; 
 
 // Optional: Clear all existing options first:
 select.innerHTML = "";
