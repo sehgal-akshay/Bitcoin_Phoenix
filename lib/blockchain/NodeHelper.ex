@@ -22,4 +22,8 @@ defmodule NodeHelper do
 		
 		Enum.map(@miners, fn x -> Atom.to_string x end)
 	end
+
+	def getBalance(nodeN) do
+		NodeCoordinator.get_wallet_balance(nodeN)
+	end
 end

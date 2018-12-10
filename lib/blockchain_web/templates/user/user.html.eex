@@ -60,9 +60,15 @@
 
 <div id = "section" hidden>
       <%# <input class="form-control mr-sm-2" type="search" placeholder="Enter User ID" aria-label="Search"> %>
-      <button  id = "firstButton">Show Wallet Balance</button>
+      <button onclick = getBalance()>Show Wallet Balance</id>
       <button>Do Transaction</button>
       <button>Search</button>
+      <script>
+          function getBalance() {
+             var user = document.getElementById("selectNumber").value;
+             location.href='http://localhost:4000/user/balance/' + user ;
+          }
+      </script>
 </div>
 
 </head>
