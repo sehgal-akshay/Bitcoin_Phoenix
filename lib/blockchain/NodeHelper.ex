@@ -15,11 +15,11 @@ defmodule NodeHelper do
 
 	def getUsers do
 		
-		@users
+		Enum.map(@users, fn x -> Atom.to_string x end)
 	end
 
 	def getMiners do
 		
-		@miners
+		Enum.map(@miners, fn x -> Atom.to_string x end)
 	end
 end
