@@ -19,7 +19,11 @@ defmodule BlockchainWeb.Router do
     get("/", PageController, :index)
     get("/user", UserController, :index)
     get("/miner", MinerController, :index)
-    get("/user/balance/:user", UserController, :balance)
+    get("/user/balance/:user", UserController, :get_balance)
+    get("/miner/balance/:miner", MinerController, :get_balance)
+    get("/miner/startMine/:miner", MinerController, :start_mine)
+    get("/miner/stopMine/:miner", MinerController, :stop_mine)
+    get("/miner/blockchain/:miner", MinerController, :get_blockchain)
   end
 
   # Other scopes may use custom stacks.

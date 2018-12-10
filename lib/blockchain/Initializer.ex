@@ -17,8 +17,8 @@ defmodule Initializer do
 		SysConfigs.init(@users)
 		:timer.sleep 3000
 		listen_at_user_nodes()
-		IO.puts "starting to mine"
-		mine()
+		# IO.puts "starting to mine"
+		# mine()
 
 		if args != nil && length(args) != 0 do
 

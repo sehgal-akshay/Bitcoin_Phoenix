@@ -40,7 +40,6 @@
           var select = document.getElementById("selectNumber"); 
           var options = new Array();
           options = '<%= @miners %>'; 
-
           // Optional: Clear all existing options first:
           select.innerHTML = "";
           // Populate list with options:
@@ -49,19 +48,27 @@
               select.innerHTML += "<option value=\"" + opt + "\">" + opt + "</option>";
           }
 
+          selectedMinerScreen();
+
           function displayMinerScreen() {
               var x = document.getElementById("selectNumber").value;
                 document.getElementById("head").hidden = false;
                 document.getElementById("head").innerHTML = "Welcome Miner " + x;
                 document.getElementById("section").hidden = false;
           }
+
+          function selectedMinerScreen() {
+              var x = '<%= @selected_miner %>';
+                document.getElementById("head").hidden = false;
+                document.getElementById("head").innerHTML = "Welcome Miner " + x;
+                document.getElementById("section").hidden = false;
+          }
           </script>
-    <div id = "section" hidden>
-      <%# <input class="form-control mr-sm-2" type="search" placeholder="Enter User ID" aria-label="Search"> %>
+
       <button onclick = getBalance()>Show Wallet Balance</button>
       <button onclick = startMine()>Start Mining</button>
       <button onclick = stopMine()>Stop Mining</button>
-      <p>Blockchain is <b id ='blockchain'>@blockchain</b></p>
+      <p></p><p>Blockchain is <b id ='blockchain'>'<%= @blockchain[0] %>'</b></p>
       <button onclick = getBlockChain()>View Current BlockChain</button>
       <button>Search</button>
       <script>
@@ -80,10 +87,8 @@
           function getBlockChain() {
              var miner = document.getElementById("selectNumber").value;
              location.href='http://localhost:4000/miner/blockchain/' + miner ;
-             displayMinerScreen();
           }
       </script>
-  </div>
   </head>
 </body>
 </html>

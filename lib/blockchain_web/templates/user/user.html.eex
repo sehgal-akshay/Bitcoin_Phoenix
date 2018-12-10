@@ -60,7 +60,7 @@
 
 <div id = "section" hidden>
       <%# <input class="form-control mr-sm-2" type="search" placeholder="Enter User ID" aria-label="Search"> %>
-      <button onclick = getBalance()>Show Wallet Balance</id>
+      <button onclick = getBalance()>Show Wallet Balance</button>
       <button>Do Transaction</button>
       <button>Search</button>
       <script>
@@ -72,4 +72,5 @@
 </div>
 
 </head>
+</body>
 </html>

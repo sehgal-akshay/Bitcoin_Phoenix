@@ -20,6 +20,10 @@ defmodule ProcessRegistry do
     GenServer.call(:registry, {:lookup, pid})
   end
 
+   def get_pid(p_name) do
+    GenServer.call(:registry, {:get_pid, p_name})
+  end
+
   def get_p_names do
     GenServer.call(:registry, {:get_p_names})
   end
@@ -61,6 +65,10 @@ defmodule ProcessRegistry do
     {:reply, Map.values(registry), registry}
   end
 
+  def handle_call({:get_pid, p_name}, _from, registry) do
+    {:reply, getpid(registry, p_name), registry}
+  end
+
   def handle_info({:DOWN, _ref, :process, p_name, _reason}, registry) do
     {:noreply, deregister(registry, p_name)}
   end
@@ -70,6 +78,10 @@ defmodule ProcessRegistry do
   # Helper Functions #
   defp deregister(registry, pid) when is_pid(pid) do
     Map.delete(registry, pid)
+  end
+
+  defp getpid(registry, p_name) do
+    Enum.find(registry, nil, fn({_pid, cur_p_name}) -> cur_p_name == p_name end)
   end
 
   defp deregister(registry, p_name) do
