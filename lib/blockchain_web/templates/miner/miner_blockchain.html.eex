@@ -68,9 +68,37 @@
       <button onclick = getBalance()>Show Wallet Balance</button>
       <button onclick = startMine()>Start Mining</button>
       <button onclick = stopMine()>Stop Mining</button>
-      <p></p><p>Blockchain is <b id ='blockchain'>'<%= @blockchain %>'</b></p>
-      <button onclick = getBlockChain()>View Current BlockChain</button>
+      <button onclick = getBlockChain()>View Current Blockchain</button>
       <button>Search</button>
+      <style>
+        table, th, td {
+          border: 1px solid black;
+          padding:0 15px 0 15px;
+        }
+      </style>
+      <h2>Blockchain</h2>
+      <table>
+      <tr>
+        <th>Index</th>
+        <th>Time_Stamp</th> 
+        <th>Hash_Value</th>
+        <th>Previous_Block_Hash</th>
+        <th>Nonce></th>
+      </tr>
+      <div id="contentEditableText">
+        <%= for block <- @blockchain do %>
+        <tr>
+        <td><%=block.index%></td>
+        <td><%=block.timestamp%></td>
+        <td><%=block.hash_value%></td>
+        <td><%=block.prev_block_hash%></td>
+        <td><%=block.nonce %></td>
+        <% end %>
+      </tr>
+      </div>
+      </table>
+      </div></b>
+      
       <script>
           function getBalance() {
              var miner = document.getElementById("selectNumber").value;
