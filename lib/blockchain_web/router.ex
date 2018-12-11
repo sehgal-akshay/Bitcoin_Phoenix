@@ -24,6 +24,8 @@ defmodule BlockchainWeb.Router do
     get("/miner/startMine/:miner", MinerController, :start_mine)
     get("/miner/stopMine/:miner", MinerController, :stop_mine)
     get("/miner/blockchain/:miner", MinerController, :get_blockchain)
+    get("/user/transact/:user/:users", TransactController, :index)
+    get("/user/transact/:from/:to/:amt", TransactController, :transact)
   end
 
   # Other scopes may use custom stacks.

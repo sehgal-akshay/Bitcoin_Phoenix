@@ -68,7 +68,7 @@
       <button onclick = getBalance()>Show Wallet Balance</button>
       <button onclick = startMine()>Start Mining</button>
       <button onclick = stopMine()>Stop Mining</button>
-      <p></p><p>Blockchain is <b id ='blockchain'>'<%= @blockchain[0] %>'</b></p>
+      <p></p><p>Blockchain is <b id ='blockchain'>'<%= @blockchain %>'</b></p>
       <button onclick = getBlockChain()>View Current BlockChain</button>
       <button>Search</button>
       <script>

@@ -1,0 +1,75 @@
+<html>
+<head>
+<title>Mint Coin Web UI</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    button {
+      position: absolute;
+    top: 60%;
+    left: 50%;
+    align: center;
+    }
+  </style>
+<body>
+<div class="form-group">
+  <label for="usr">From:</label>
+  <input type="text" class="form-control" id="usr" value = <%= @user %> readonly>
+</div>
+<div class="form-group">
+  <label for="selectUser">To (Select the User Name): </label>
+  <select class="form-control" id="selectUser" onchange=myFunction()>
+  </select>
+</div>
+<div class="form-group">
+  <label for="usr">Enter the Amount</label>
+  <input type="text" id="amt" class="form-control" onkeypress="return isNumber(event)">
+</div>
+<div class="container">            
+  <button type="button" class="btn btn-info btn-lg" onclick = confirmationScreen()>Submit</button>      
+</div>
+<script>
+            var select = document.getElementById("selectUser"); 
+            var options = new Array();
+            options = '<%= @users %>'; 
+
+            // Optional: Clear all existing options first:
+            select.innerHTML = "";
+            // Populate list with options:
+            for(var i = 0; i < options.length; i++) {
+                var opt = options[i];
+                select.innerHTML += "<option value=\"" + opt + "\">" + opt + "</option>";
+            }
+
+            function myFunction() {
+                var x = document.getElementById("selectNumber").value;
+                //document.getElementById("demo").innerHTML = "You selected: " + x;
+                document.getElementById("head").hidden = false;
+                document.getElementById("head").innerHTML = "Welcome User " + x;
+                document.getElementById("section").hidden = false;
+            }
+
+            function confirmationScreen() {
+            var from = document.getElementById("usr").value;
+            var to = document.getElementById("selectUser").value;
+            var amt = document.getElementById("amt").value;
+            location.href='http://localhost:4000/user/transact/' + from + '/' + to + '/' + amt;
+          }
+            function isNumber(evt) {
+              evt = (evt) ? evt : window.event;
+              var charCode = (evt.which) ? evt.which : evt.keyCode;
+              if ( (charCode > 31 && charCode < 48) || charCode > 57) {
+                  return false;
+              }
+              return true;
+                }
+            </script>
+
+<%# <font size="6">Your balance is :</font> %>
+</body>
+</head>
+</html>

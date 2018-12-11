@@ -18,6 +18,8 @@
                         'Elixir.BlockchainWeb.PageView',
                         'Elixir.BlockchainWeb.Router',
                         'Elixir.BlockchainWeb.Router.Helpers',
+                        'Elixir.BlockchainWeb.TransactController',
+                        'Elixir.BlockchainWeb.TransactView',
                         'Elixir.BlockchainWeb.UserController',
                         'Elixir.BlockchainWeb.UserSocket',
                         'Elixir.BlockchainWeb.UserView',

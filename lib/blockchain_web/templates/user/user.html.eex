@@ -61,12 +61,18 @@
 <div id = "section" hidden>
       <%# <input class="form-control mr-sm-2" type="search" placeholder="Enter User ID" aria-label="Search"> %>
       <button onclick = getBalance()>Show Wallet Balance</button>
-      <button>Do Transaction</button>
+      <button onclick = transactScreen()>Do Transaction</button>
       <button>Search</button>
       <script>
           function getBalance() {
              var user = document.getElementById("selectNumber").value;
              location.href='http://localhost:4000/user/balance/' + user ;
+          }
+          
+          function transactScreen() {
+            options = '<%= @users %>';
+            var user = document.getElementById("selectNumber").value;
+            location.href='http://localhost:4000/user/transact/' + user + '/' + options;
           }
       </script>
 </div>
