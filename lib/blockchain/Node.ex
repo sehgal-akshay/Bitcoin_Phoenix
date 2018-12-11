@@ -8,7 +8,7 @@ defmodule Node do
 	end
 
 	def init([target_value, private_key, public_key, isMiner]) do
-		IO.puts "Node is starting" 
+		IO.puts "Node is starting"
 		state = %{:blockchain => [], :unconfirmed_transactions => [], :target_value => target_value, :private_key => private_key, :public_key => public_key, :isMiner => isMiner, :wallet => 10000}
     	{:ok, state}
 	end
@@ -31,7 +31,7 @@ defmodule Node do
 
 	def handle_call(:get_last_block_hash, _, state) do
 	   	blockchain = Map.get(state, :blockchain)
-	   	last_block = 
+	   	last_block =
 	   		if blockchain != nil do
 	   			 last_block = Enum.at(blockchain, -1)
 	   			 if last_block != nil do
@@ -67,7 +67,7 @@ defmodule Node do
 	def handle_call(:mine, _, state) do
 		isMiner = Map.get(state, :isMiner)
 		nodeN = ProcessRegistry.lookup(self())
-		mining_process = 
+		mining_process =
 			if isMiner == true do
 				spawn(Node, :mine, [nodeN])
 			else
@@ -79,32 +79,40 @@ defmodule Node do
 
 	@doc "The user nodes on getting a new block will get the notification and will update their wallet balance"
 	def handle_cast({:listen_at_user_node, prev_last_block}, state) do
-		
+
 		nodeN = ProcessRegistry.lookup(self())
 		blockchain = Map.get(state, :blockchain)
 		last_block = Enum.at(blockchain, -1)
-		new_state = 
+		new_state =
 			if last_block != nil && last_block != prev_last_block && last_block.transactions != nil do
 				Enum.reduce(last_block.transactions, state, fn transaction, acc ->
-					acc = 
+					acc =
 						if nodeN == transaction.to do
-							current_balance = Map.get(state, :wallet)
-							# IO.puts "Node #{nodeN} received an amount #{transaction.amount}, balace = #{current_balance}"
-							Map.put(acc, :wallet, current_balance+transaction.amount)
+								current_balance = Map.get(state, :wallet)
+								IO.puts "Node #{nodeN} credited amount #{transaction.amount}, balance = #{current_balance}"
+								Map.put(acc, :wallet, current_balance+transaction.amount)
 						else
-							acc
+								if nodeN == transaction.from do
+									current_balance = Map.get(state, :wallet)
+									IO.puts "Node #{nodeN} debited amount #{transaction.amount}, balance = #{current_balance}"
+									Map.put(acc, :wallet, current_balance-transaction.amount)
+								else
+									acc
+								end
 						end
 					acc
 				end)
 			else
 				state
-			end	
+			end
+		IO.puts "Updated amount ====== #{Map.get(new_state, :wallet)}"
+		IO.puts "nodeN ====== #{nodeN}"
 		NodeCoordinator.listen_at_user_node(nodeN, last_block)
 		{:noreply, new_state}
 	end
 
 
-	#This adds a newly created block to the blockchain. Will be called when some other node has mined 
+	#This adds a newly created block to the blockchain. Will be called when some other node has mined
 	#and wants to add the newly mined block to the blockchain of the the other nodes
 	def handle_cast({:add_block_to_chain, block}, state) do
 		blockchain = Map.get(state, :blockchain)
@@ -184,11 +192,11 @@ defmodule Node do
 				else
 					{max, maxp}
 				end
-		end)	
+		end)
 		#Check 51% consensus rule
 		new_state =
 			if max_participant == nil || max > length(participants)/2 do
-				
+
 				blockchain_honest = NodeCoordinator.get_blockchain(max_participant)
 				Map.put(state, :blockchain, blockchain_honest)
 			else
@@ -210,7 +218,7 @@ defmodule Node do
 		state = NodeCoordinator.get_state(nodeN)
 		blockchain = Map.get(state, :blockchain)
 		last_block = Enum.at(blockchain, -1)
-		{state, last_block} = 
+		{state, last_block} =
 			if last_block == nil do
 				#First Block
 				first_block = Block.new(1, "00000000000000000", "00000000000000000", nil, nil)
@@ -243,7 +251,7 @@ defmodule Node do
 	end
 
 	defp mine_for_hash(state, nodeN, last_block, index, transactions, nonce) do
-		
+
 		target_value = Map.get(state, :target_value)
 
 		#Update to latest state
@@ -255,8 +263,8 @@ defmodule Node do
 		last_block_updated = Enum.at(blockchain, -1)
 
 		if last_block_updated != nil && last_block.hash_value != last_block_updated.hash_value do
-			
-			# IO.puts("Received ## Blockchain at #{nodeN} == ") 
+
+			# IO.puts("Received ## Blockchain at #{nodeN} == ")
 			# printblockchain(blockchain)
 			#Received a new block. Check if this valid.
 			#1. If valid, start working on top of this new block---
@@ -273,7 +281,7 @@ defmodule Node do
 			# test_block hash_value is #{check(test_block.hash_value,last_block_updated.hash_value)}
 			# "
 			#Below if condition checks if the received block is valid
-			if (last_block_updated.index == index 
+			if (last_block_updated.index == index
 					&& last_block_updated.prev_block_hash == last_block.hash_value
 					&& last_block_updated.hash_value == test_block.hash_value) do
 
@@ -290,14 +298,14 @@ defmodule Node do
 				IO.inspect("Node #{nodeN} received a block : not valid")
 				NodeCoordinator.remove_last_block_from_chain(nodeN)
 				#Block is not valid, mine the old block
-				mine_for_hash(state, nodeN, last_block, index, transactions, nonce)	
+				mine_for_hash(state, nodeN, last_block, index, transactions, nonce)
 			end
-				
+
 		else
 
 			#No new block, continue mining using this info
 			block = do_hash(Block.new(index, nil, last_block.hash_value, transactions, nonce))
-			
+
 			# IO.inspect "Mined value at node #{nodeN} is #{inspect block.hash_value}, target_value = #{inspect target_value}"
 
 			if block.hash_value > target_value do
@@ -317,7 +325,7 @@ defmodule Node do
 	end
 
 	def get_transaction_reward(transactions) do
-		
+
 		Enum.reduce(transactions, 0, fn transaction, sum ->
 
 			sum + transaction.reward
@@ -326,34 +334,34 @@ defmodule Node do
 
 	defp filter_valid_transactions(nodeN, limit, blockchain) do
 
-		# #We need to use only the valid transactions from here on, remove the invalid ones 
+		# #We need to use only the valid transactions from here on, remove the invalid ones
 		# NodeCoordinator.set_unconfirmed_transactions(nodeN, valid_unconfirmed_transactions)
 		unconfirmed_transactions = NodeCoordinator.get_unconfirmed_transactions(nodeN)
 		valid_unconfirmed_transactions = Enum.filter(unconfirmed_transactions, fn(transaction) ->
-											Transaction.validate(transaction) 
+											Transaction.validate(transaction)
 											&& validate_transaction_from_blockchain(blockchain, nodeN) end)
 
 		Enum.take(valid_unconfirmed_transactions, limit)
-	
-		
+
+
 	end
 
 
 	defp validate_transaction_from_blockchain(blockchain, from) do
-		
+
 			{from_transactions, to_transactions} = Enum.reduce(blockchain, {[], []}, fn block, {from_total_list, to_total_list} ->
 
 					if block.transactions != nil do
 							{from_inner, to_inner} = Enum.reduce(block.transactions, {[], []}, fn tx, {from_list, to_list} ->
 
-												from_list = 
+												from_list =
 													if from == tx.from do
 														Enum.concat from_list, [tx.amount]
 													else
 														from_list
 													end
 
-												to_list = 
+												to_list =
 													if from == tx.to do
 														Enum.concat to_list, [tx.amount]
 													else
