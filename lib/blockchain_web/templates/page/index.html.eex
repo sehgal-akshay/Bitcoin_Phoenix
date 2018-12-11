@@ -18,16 +18,25 @@
       </li>
   </div>
 </nav> %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <title>Mint Coin Web UI</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="refresh" content="30">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script>
+        function pageloadEvery(t) {
+        setTimeout('location.reload(true)', t);
+        }
+        <body onload="javascript:pageloadEvery(30000);">
+    </script>
   <style>
+
     /* Remove the navbar's default margin-bottom and rounded borders */ 
     .navbar {
       margin-bottom: 0;
@@ -45,8 +54,6 @@
     </div>
   </div>
 </nav>
-
-
   
 <div class="container text-center">    
   <h3>Select Your Option</h3><br>
@@ -73,8 +80,72 @@
       </div>
       </a>
   </div>
-</div><br>
+
+</div>
+
+ <style>
+     .left {
+        /*float: left;*/
+        margin-top: 60px;
+        margin-left:30%;
+
+      }
+
+      .right {
+        /*float: right;*/
+        margin-top: 100px;
+        margin-left:20%;
+      }
+
+  </style>
+<div class = "entire-thing">
+   
+    <div class="right">
+      <style>
+        p.ex1 {
+        margin-top: 60px;
+        width:100%;
+        }
+      </style>
+        <% 
+          unconfirmed_tx = @unconfirmed_tx
+          mined_tx = @mined_tx
+          pie_data = Poison.encode!([["Unconfirmed Transactions", length(unconfirmed_tx)],["Mined Transactions",length(mined_tx)]]) %>
+        <%= raw Chartkick.pie_chart pie_data %>
+     </div>
+     <div class = "left">
+        <p class = "ex2"> <b>Pending Transactions</b>
+            <style>
+                  table, th, td {
+                    border: 1px solid black;
+                    padding:0 15px 0 15px;
+                  }
+              </style>
+              <table>
+                <tr>
+                  <th>Time_Stamp</th>
+                  <th>From</th> 
+                  <th>To</th>
+                  <th>Amount</th>
+                </tr>
+                <div id="contentEditableText">
+                  <%= for transaction <- unconfirmed_tx do %>
+                  <tr>
+                  <td><%=transaction.timestamp%></td>
+                  <td><%=transaction.from%></td>
+                  <td><%=transaction.to%></td>
+                  <td><%=transaction.amount%></td>
+                  <% end %>
+                </tr>
+                </div>
+            </table>
+          </p>
+      </div>
+</div>
+
 </body>
 </html>
 
 </html>
+
+

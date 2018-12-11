@@ -43,7 +43,8 @@ defmodule Blockchain.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:rsa_ex, "~> 0.4"}
+      {:rsa_ex, "~> 0.4"},
+      {:chartkick, "~>0.3.0"}
     ]
   end
 

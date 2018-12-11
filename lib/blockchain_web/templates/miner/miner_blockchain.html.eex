@@ -83,7 +83,7 @@
         <th>Time_Stamp</th> 
         <th>Hash_Value</th>
         <th>Previous_Block_Hash</th>
-        <th>Nonce></th>
+        <th>Nonce</th>
       </tr>
       <div id="contentEditableText">
         <%= for block <- @blockchain do %>

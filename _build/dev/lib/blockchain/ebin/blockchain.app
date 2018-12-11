@@ -1,7 +1,7 @@
 {application,blockchain,
              [{applications,[kernel,stdlib,elixir,logger,runtime_tools,rsa_ex,
                              gettext,jason,phoenix_pubsub,postgrex,ecto_sql,
-                             phoenix_html,plug_cowboy,phoenix,
+                             chartkick,phoenix_html,plug_cowboy,phoenix,
                              phoenix_live_reload,phoenix_ecto]},
               {description,"blockchain"},
               {modules,['Elixir.Block','Elixir.BlockChainApp',

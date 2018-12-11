@@ -49,4 +49,22 @@ defmodule NodeHelper do
 
 		SysConfigs.performTransaction(from, to, amount)
 	end
+
+	def get_pre_data do
+		
+		#Only some miners may be active, so we need the pool where its not there
+		{unconfirmed_tx, _} = Enum.reduce(@miners, {[],100000000000000000}, fn miner,{acc,l} ->
+			uncon_tx = NodeCoordinator.get_unconfirmed_transactions(miner)
+			l_uncon_tx = length(uncon_tx)
+			if l_uncon_tx < l do
+				{uncon_tx, l_uncon_tx}
+			else
+				{acc, l}
+			end
+		end)
+		nodeN = Enum.at(@miners, 0)
+		{NodeCoordinator.get_blockchain(nodeN),
+		unconfirmed_tx}
+	end
+
 end

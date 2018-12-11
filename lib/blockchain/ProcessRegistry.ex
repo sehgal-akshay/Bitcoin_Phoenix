@@ -81,7 +81,12 @@ defmodule ProcessRegistry do
   end
 
   defp getpid(registry, p_name) do
-    Enum.find(registry, nil, fn({_pid, cur_p_name}) -> cur_p_name == p_name end)
+    result = Enum.find(registry, nil, fn({_pid, cur_p_name}) -> cur_p_name == p_name end)
+    if result != nil do
+       elem(result, 0)
+    else
+      result
+    end
   end
 
   defp deregister(registry, p_name) do

@@ -98,5 +98,10 @@ defmodule Initializer do
 		end
 	end
 
+	def get_users do
+		
+		@users
+	end
+
 end
 
