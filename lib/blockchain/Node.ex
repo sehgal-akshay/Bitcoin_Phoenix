@@ -89,12 +89,12 @@ defmodule Node do
 					acc =
 						if nodeN == transaction.to do
 								current_balance = Map.get(state, :wallet)
-								IO.puts "Node #{nodeN} credited amount #{transaction.amount}, balance = #{current_balance}"
+								# IO.puts "Node #{nodeN} credited amount #{transaction.amount}, balance = #{current_balance}"
 								Map.put(acc, :wallet, current_balance+transaction.amount)
 						else
 								if nodeN == transaction.from do
 									current_balance = Map.get(state, :wallet)
-									IO.puts "Node #{nodeN} debited amount #{transaction.amount}, balance = #{current_balance}"
+									# IO.puts "Node #{nodeN} debited amount #{transaction.amount}, balance = #{current_balance}"
 									Map.put(acc, :wallet, current_balance-transaction.amount)
 								else
 									acc
@@ -105,8 +105,8 @@ defmodule Node do
 			else
 				state
 			end
-		IO.puts "Updated amount ====== #{Map.get(new_state, :wallet)}"
-		IO.puts "nodeN ====== #{nodeN}"
+		# IO.puts "Updated amount ====== #{Map.get(new_state, :wallet)}"
+		# IO.puts "nodeN ====== #{nodeN}"
 		NodeCoordinator.listen_at_user_node(nodeN, last_block)
 		{:noreply, new_state}
 	end
