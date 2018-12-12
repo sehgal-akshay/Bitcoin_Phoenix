@@ -8,11 +8,17 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
     /* Remove the navbar's default margin-bottom and rounded borders */ 
-    button {
+    .firstButton {
       position: absolute;
-    top: 60%;
-    left: 50%;
+    top: 70%;
+    left: 40%;
     align: center;
+    }
+    .secondButton{
+      position: absolute;
+    top: 70%;
+    left: 50%;
+    align: right;
     }
   </style>
 <body>
@@ -29,8 +35,11 @@
   <label for="usr">Enter the Amount</label>
   <input type="text" id="amt" class="form-control" onkeypress="return isNumber(event)">
 </div>
-<div class="container">            
+<div class="firstButton">            
   <button type="button" class="btn btn-info btn-lg" onclick = confirmationScreen()>Submit</button>      
+</div>
+<div class ="secondButton">
+<a href="/"><button type="button" class="btn btn-info btn-lg">Home Screen</button></a>
 </div>
 <script>
             var select = document.getElementById("selectUser"); 

@@ -62,7 +62,6 @@
       <button onclick = startMine()>Start Mining</button>
       <button onclick = stopMine()>Stop Mining</button>
       <button onclick = getBlockChain()>View Current BlockChain</button>
-      <button>Search</button>
       <script>
           function getBalance() {
              var miner = document.getElementById("selectNumber").value;

@@ -62,7 +62,6 @@
       <%# <input class="form-control mr-sm-2" type="search" placeholder="Enter User ID" aria-label="Search"> %>
       <button onclick = getBalance()>Show Wallet Balance</button>
       <button onclick = transactScreen()>Do Transaction</button>
-      <button>Search</button>
       <script>
           function getBalance() {
              var user = document.getElementById("selectNumber").value;

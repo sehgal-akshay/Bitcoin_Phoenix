@@ -1,5 +1,14 @@
 <html>
 <head>
-<font size="6">Your balance is : '<%= @balance %>'</font>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<body>
+<div class="container">
+  <h2>Your balance is :</h2>
+  <div class="panel panel-default">
+    <div class="panel-body"><%= @balance %></div>
+  </div>
+</div>
+<a href="/"><button type="button" class="btn btn-primary">Home Screen</button></a>
+</body>
 </head>
 </html>
