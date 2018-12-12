@@ -84,23 +84,30 @@
 </div>
 
  <style>
-     .left {
+     .top {
         /*float: left;*/
         margin-top: 60px;
         margin-left:30%;
 
       }
 
-      .right {
-        /*float: right;*/
+      .left {
+        float: left;
         margin-top: 100px;
-        margin-left:20%;
+/*        margin-left:20%;
+*/
+      }
+
+      .right {
+        float: right;
+        margin-top: 100px;
+        /*margin-left:20%;*/
       }
 
   </style>
 <div class = "entire-thing">
    
-    <div class="right">
+    <div class="top">
       <style>
         p.ex1 {
         margin-top: 60px;
@@ -141,6 +148,35 @@
             </table>
           </p>
       </div>
+      <div class = "right">
+        <p class = "ex3"> <b>Transaction History (Mined)</b>
+            <style>
+                  table, th, td {
+                    border: 1px solid black;
+                    padding:0 15px 0 15px;
+                  }
+              </style>
+              <table>
+                <tr>
+                  <th>Time_Stamp</th>
+                  <th>From</th> 
+                  <th>To</th>
+                  <th>Amount</th>
+                </tr>
+                <div id="contentEditableText">
+                  <%= for transaction <- mined_tx do %>
+                  <tr>
+                  <td><%=transaction.timestamp%></td>
+                  <td><%=transaction.from%></td>
+                  <td><%=transaction.to%></td>
+                  <td><%=transaction.amount%></td>
+                  <% end %>
+                </tr>
+                </div>
+            </table>
+          </p>
+      </div>
+
 </div>
 
 </body>
