@@ -78,7 +78,7 @@ defmodule Node do
 	end
 
 	@doc "The user nodes on getting a new block will get the notification and will update their wallet balance"
-	def handle_cast({:listen_at_user_node, prev_last_block}, state) do
+	def handle_call({:listen_at_user_node, prev_last_block}, _, state) do
 
 		nodeN = ProcessRegistry.lookup(self())
 		blockchain = Map.get(state, :blockchain)
@@ -107,8 +107,7 @@ defmodule Node do
 			end
 		# IO.puts "Updated amount ====== #{Map.get(new_state, :wallet)}"
 		# IO.puts "nodeN ====== #{nodeN}"
-		NodeCoordinator.listen_at_user_node(nodeN, last_block)
-		{:noreply, new_state}
+		{:reply, last_block, new_state}
 	end
 
 
@@ -119,7 +118,7 @@ defmodule Node do
 		#Mostly to prevent first block from getting added multiple times on the same chain
 		last_block = Enum.at(blockchain, -1)
 		new_state =
-			if (last_block == nil || (last_block.hash_value != block.hash_value && last_block.transactions != block.transactions)) do
+			if (last_block == nil || (last_block.hash_value != block.hash_value && last_block.transactions != block.transactions && block.transactions != nil)) do
 				Map.put(state, :blockchain, Enum.concat(blockchain, [block]))
 			else
 				state

@@ -14,4 +14,12 @@ defmodule BlockchainWeb.PageController do
   	end )
     render(conn, "index.html", unconfirmed_tx: unconfirmed_tx, mined_tx: mined_tx)
   end
+
+  def blockchaindetails(conn, _params) do
+
+  	nodeN = String.to_atom(Enum.at(NodeHelper.get_users, 0))
+  	blockchain = NodeHelper.get_blockchain(nodeN)
+    render(conn, "blockchaindetails.html", blockchain: blockchain)
+  end
+
 end

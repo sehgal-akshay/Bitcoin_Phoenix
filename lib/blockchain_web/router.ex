@@ -17,6 +17,7 @@ defmodule BlockchainWeb.Router do
     pipe_through(:browser)
 
     get("/", PageController, :index)
+    get("/blockchaindetails", PageController, :blockchaindetails)
     get("/user", UserController, :index)
     get("/miner", MinerController, :index)
     get("/user/balance/:user", UserController, :get_balance)

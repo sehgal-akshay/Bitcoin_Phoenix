@@ -1,0 +1,69 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<body>
+<div class="container">
+  <h2>Blockchain</h2>
+  <div class="panel panel-default" style="width: 2000px">
+    <div class="panel-body">
+      <style>
+        table, th, td {
+          border: 1px solid black;
+          padding:0 15px 0 15px;
+        }
+      </style>
+      <table>
+      <tr>
+        <th>Index</th>
+        <th>Time_Stamp</th> 
+        <th>Hash_Value</th>
+        <th>Previous_Block_Hash</th>
+        <th>Transactions</th>
+        <th>Nonce</th>
+      </tr>
+      <div id="contentEditableText">
+        <%= for block <- @blockchain do %>
+            <tr>
+              <td><%=block.index%></td>
+              <td><%=block.timestamp%></td>
+              <td width="10px"><%=block.hash_value%></td>
+              <td><%=block.prev_block_hash%></td>
+              <td>
+                <%=
+                if block.transactions != nil do %>
+                      <style>
+                          table, th, td {
+                            border: 1px solid black;
+                            padding:0 15px 0 15px;
+                          }
+                      </style>
+                      <table>
+                      <tr>
+                        <th>from</th>
+                        <th>to</th> 
+                        <th>amount</th>
+                        <th>Time_Stamp</th>
+                      </tr>
+                     <%=  for transaction <- block.transactions do %>
+                            <tr> 
+                            <td><%=transaction.from%></td>
+                            <td><%=transaction.to%></td>
+                            <td><%=transaction.amount%></td>
+                            <td><%=transaction.timestamp%></td>
+                            </tr>
+                      <% end %>
+                  </table>
+              <% end %>
+              </td>
+            <td><%=block.nonce%></td>
+             </tr>
+        <% end %>
+      </div>
+      </table>
+    </div>
+  </div>
+</div>
+<a href="/"><button type="button" class="btn btn-primary">Home Screen</button></a>
+</body>
+</head>
+</html>
