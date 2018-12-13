@@ -1,7 +1,8 @@
 defmodule SysConfigs do
 	
-	def init(users) do
-		spawn(SysConfigs, :generateInitialWalletBalance, [users])
+	def simulate(users) do
+		simulation_pid = spawn(SysConfigs, :begin_transaction, [users])
+		ProcessRegistry.register_name(simulation_pid, :simulation_process)
 	end
 
 	@doc "nodeMap is used to pick a random node for conducting the transaction"
@@ -46,6 +47,7 @@ defmodule SysConfigs do
 			initial_transaction = Map.put(initial_transaction, :public_key, pub)
 			NodeSupervisor.broadcast(&NodeCoordinator.add_unconfirmed_transaction/2, initial_transaction)
 		end
+		# Process.exit(self(), :ok)
 	end
 
 	def performTransaction(from, to, amount) do

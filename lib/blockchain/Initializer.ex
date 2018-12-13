@@ -1,6 +1,6 @@
 defmodule Initializer do
 
-	@users [:a, :b, :c, :d, :e, :f, :g]
+	@users Enum.to_list(1..7) |> Enum.map(fn i -> i |> Integer.to_string |> String.to_atom end)
 	@miners [:m1, :m2, :m3, :m4, :m5, :m6, :m7]
 	@target_value "000" <> String.slice(Base.encode16(HashGenerator.hash(:crypto.strong_rand_bytes(20))), 3..63)
 
@@ -11,13 +11,8 @@ defmodule Initializer do
 		NodeSupervisor.start_link
 		ProcessRegistry.start_link
 		Cache.start_link
-		nodeMap = startusers(@users)
-		minersMap = startminers(@miners)
-		ProcessRegistry.merge nodeMap
-		ProcessRegistry.merge minersMap
-		SysConfigs.init(@users)
-		:timer.sleep 3000
-		listen_at_user_nodes()
+
+		handle_new_users_miners(@users, @miners)
 		# IO.puts "starting to mine"
 		# mine()
 
@@ -42,15 +37,37 @@ defmodule Initializer do
 		:timer.sleep @timeout
 	end
 
+	def handle_new_users_miners(users, miners) do 
+		
+		if miners != nil do
+			minersMap = startminers(miners)
+			ProcessRegistry.merge minersMap
+			current_miners = Cache.lookup(:miners)
+			current_miners = if current_miners == :undefined do [] else current_miners end
+			Cache.store(:miners, Enum.concat(current_miners, miners))
+		end
+		if users != nil do 
+			usersMap = startusers(users)
+			ProcessRegistry.merge usersMap
+			SysConfigs.generateInitialWalletBalance(users)
+			listen_at_user_nodes(users)
+			current_users = Cache.lookup(:users)
+			current_users = if current_users == :undefined do [] else current_users end
+			Cache.store(:users, Enum.concat(current_users ,users))
+		end
+
+	end
 
 	def startusers(users) do
 		
-		Enum.reduce(users, %{}, fn user, acc -> 
+		usersMap = Enum.reduce(users, %{}, fn user, acc -> 
 		    {generated_private_key, generated_public_key} = DigitalSignature.gen_key_pair()
 			res = NodeSupervisor.start_node(user, @target_value, 
 									generated_private_key, generated_public_key, false)
 			Map.put acc, elem(res ,1), user
 		end)
+		IO.puts "All nodes have started."
+		usersMap
 	end
 
 	def startminers(miners) do
@@ -63,16 +80,16 @@ defmodule Initializer do
 		end)
 	end
 
-	defp mine do
+	def mine do
 		
 		Enum.each(@miners, fn miner -> 
 			NodeCoordinator.mine(miner)
 		end)
 	end
 
-	def listen_at_user_nodes do
+	def listen_at_user_nodes(users) do
 		
-		Enum.each(@users, fn user -> 
+		Enum.each(users, fn user -> 
 			NodeCoordinator.listen_at_user_node(user, nil)
 		end)
 	end
@@ -100,8 +117,11 @@ defmodule Initializer do
 	end
 
 	def get_users do
-		
-		@users
+		Cache.lookup(:users)
+	end
+
+	def get_miners do
+		Cache.lookup(:miners)
 	end
 
 end

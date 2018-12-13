@@ -19,6 +19,8 @@ defmodule BlockchainWeb.Router do
     get("/", PageController, :index)
     get("/blockchaindetails", PageController, :blockchaindetails)
     get("/statistics", PageController, :statistics)
+    get("/startsimulation", PageController, :startsimulation)
+    get("/stopsimulation", PageController, :stopsimulation)
     get("/user", UserController, :index)
     get("/miner", MinerController, :index)
     get("/user/balance/:user", UserController, :get_balance)

@@ -2,24 +2,28 @@ defmodule NodeHelper do
 
 	#This is a helper for the UI 
 
-	@users [:a, :b, :c, :d, :e, :f, :g]
-	@miners [:m1, :m2, :m3, :m4, :m5, :m6, :m7]
-
 	def getPublicKeys do
-		Enum.reduce(@users, [], fn user, acc -> 
+		Enum.reduce(get_users(), [], fn user, acc -> 
 
 		    public_key = NodeCoordinator.get_public_key user
 			Enum.concat acc, [public_key]
 		end)
 	end
 
+	def get_users_asstring do
+		Enum.map(Initializer.get_users, fn x -> Atom.to_string x end)
+	end
+
+	def get_miners_asstring do
+		Enum.map(Initializer.get_miners, fn x -> Atom.to_string x end)
+	end
 
 	def get_users do
-		Enum.map(@users, fn x -> Atom.to_string x end)
+		Initializer.get_users
 	end
 
 	def get_miners do
-		Enum.map(@miners, fn x -> Atom.to_string x end)
+		Initializer.get_miners
 	end
 
 	def get_balance(nodeN) do
@@ -48,7 +52,7 @@ defmodule NodeHelper do
 
 	def get_pre_data do
 		#Only some miners may be active, so we need the pool where its not there
-		{unconfirmed_tx, _} = Enum.reduce(@miners, {[],100000000000000000}, fn miner,{acc,l} ->
+		{unconfirmed_tx, _} = Enum.reduce(get_miners(), {[],100000000000000000}, fn miner,{acc,l} ->
 			uncon_tx = NodeCoordinator.get_unconfirmed_transactions(miner)
 			l_uncon_tx = length(uncon_tx)
 			if l_uncon_tx < l do
@@ -57,9 +61,16 @@ defmodule NodeHelper do
 				{acc, l}
 			end
 		end)
-		nodeN = Enum.at(@miners, 0)
+		nodeN = Enum.at(get_miners(), 0)
 		{NodeCoordinator.get_blockchain(nodeN),
 		unconfirmed_tx}
+	end
+
+	def run_simulation do 
+		extra_users = Enum.to_list(8..108) |> Enum.map(fn i -> i |> Integer.to_string |> String.to_atom end)
+		Initializer.handle_new_users_miners(extra_users, nil)
+		SysConfigs.simulate(extra_users)
+		Initializer.mine()
 	end
 
 end

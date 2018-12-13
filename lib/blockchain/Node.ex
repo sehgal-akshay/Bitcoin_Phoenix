@@ -8,7 +8,7 @@ defmodule Node do
 	end
 
 	def init([target_value, private_key, public_key, isMiner]) do
-		IO.puts "Node is starting"
+		# IO.puts "Node is starting"
 		state = %{:blockchain => [], :unconfirmed_transactions => [], :target_value => target_value, :private_key => private_key, :public_key => public_key, :isMiner => isMiner, :wallet => 10000}
     	{:ok, state}
 	end
@@ -78,7 +78,7 @@ defmodule Node do
 	end
 
 	@doc "The user nodes on getting a new block will get the notification and will update their wallet balance"
-	def handle_call({:listen_at_user_node, prev_last_block}, _, state) do
+	def handle_cast({:listen_at_user_node, prev_last_block}, state) do
 
 		nodeN = ProcessRegistry.lookup(self())
 		blockchain = Map.get(state, :blockchain)
@@ -107,7 +107,8 @@ defmodule Node do
 			end
 		# IO.puts "Updated amount ====== #{Map.get(new_state, :wallet)}"
 		# IO.puts "nodeN ====== #{nodeN}"
-		{:reply, last_block, new_state}
+		NodeCoordinator.listen_at_user_node(nodeN, last_block)
+		{:noreply, new_state}
 	end
 
 

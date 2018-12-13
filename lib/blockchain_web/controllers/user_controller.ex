@@ -2,7 +2,7 @@ defmodule BlockchainWeb.UserController do
   use BlockchainWeb, :controller
 
   def index(conn, _params) do
-    users = NodeHelper.get_users()
+    users = NodeHelper.get_users_asstring()
     render(conn, "user.html", users: users)
   end
 

@@ -28,17 +28,12 @@ defmodule NodeCoordinator do
 		GenServer.call(nodeN, :get_last_block_hash)
 	end
 
-	def listen_at_user_node(nodeN, prev_last_block) do
-		last_block = GenServer.call(nodeN, {:listen_at_user_node, prev_last_block})
-		listen_at_user_node(nodeN, last_block)
+	def set_blockchain(nodeN, blockchain) do
+		GenServer.cast(nodeN, {:blockchain, blockchain})
 	end
 
 	def is_miner(nodeN) do
 		GenServer.call(nodeN, :isminer)
-	end
-
-	def set_blockchain(nodeN, blockchain) do
-		GenServer.cast(nodeN, {:blockchain, blockchain})
 	end
 
 	#Removes the unconfirmed_transactions (list) from pool
@@ -66,6 +61,10 @@ defmodule NodeCoordinator do
 	#Will be called when node gets a new block and is found to be invalid, it removes from its chain
 	def remove_last_block_from_chain(nodeN) do
 		GenServer.cast(nodeN, {:remove_last_block_from_chain})
+	end
+
+	def listen_at_user_node(nodeN, prev_last_block) do
+		GenServer.cast(nodeN, {:listen_at_user_node, prev_last_block})
 	end
 
 	def new_user_registration(nodeN) do

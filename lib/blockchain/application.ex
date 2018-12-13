@@ -22,8 +22,7 @@ defmodule Blockchain.Application do
     opts = [strategy: :one_for_one, name: Blockchain.Supervisor]
     Supervisor.start_link(children, opts)
 
-    args = System.argv
-    Initializer.start(args)
+    BlockChainApp.start(nil, nil)
   end
 
   # Tell Phoenix to update the endpoint configuration
