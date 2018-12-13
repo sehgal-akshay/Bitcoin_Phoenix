@@ -1,8 +1,7 @@
 defmodule SysConfigs do
 	
 	def simulate(users) do
-		simulation_pid = spawn(SysConfigs, :begin_transaction, [users])
-		ProcessRegistry.register_name(simulation_pid, :simulation_process)
+		SysConfigs.begin_transaction(users)
 	end
 
 	@doc "nodeMap is used to pick a random node for conducting the transaction"

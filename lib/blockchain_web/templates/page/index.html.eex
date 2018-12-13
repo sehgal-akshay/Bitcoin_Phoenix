@@ -83,7 +83,7 @@
         <a class="nav-start-link" href='http://localhost:4000/startsimulation'>
         Start Simulation 
         </a>
-        <------------>
+        /
         <a class="nav-stop-link" href='http://localhost:4000/stopsimulation'>
         Stop Simulation
         </a>

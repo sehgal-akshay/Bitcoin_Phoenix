@@ -9,7 +9,7 @@ defmodule BlockchainWeb.TransactController do
     nodeN = String.to_atom(from)
     to_node = String.to_atom(to)
     user_balance = NodeHelper.get_balance(nodeN)
-    users = NodeHelper.get_users()
+    users = NodeHelper.get_users_asstring()
 
     if user_balance < String.to_integer(amt) do
       conn

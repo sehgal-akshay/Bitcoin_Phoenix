@@ -67,7 +67,7 @@ config :phoenix, :stacktrace_depth, 20
 config :phoenix, :plug_init_mode, :runtime
 
 # Configure your database
-config :blockchain, Blockchain.Repo,
+ config :blockchain, Blockchain.Repo,
   username: "postgres",
   password: "postgres",
   database: "blockchain_dev",

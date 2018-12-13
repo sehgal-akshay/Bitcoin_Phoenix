@@ -54,7 +54,10 @@ defmodule BlockchainWeb.PageController do
           |> put_flash(:info, "INFO: Simulation is already running.")
           |> render("index.html", unconfirmed_tx: unconfirmed_tx, mined_tx: mined_tx)
       else
-        	NodeHelper.run_simulation
+
+        	simulation_pid = spawn(NodeHelper, :run_simulation, [])
+          ProcessRegistry.register_name(simulation_pid, :simulation_process)
+
         	conn
         		|> put_flash(:info, "OK : Simulation has started.
               > Started more users to make 100 users. 
