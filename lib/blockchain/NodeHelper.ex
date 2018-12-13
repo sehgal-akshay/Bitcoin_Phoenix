@@ -6,7 +6,6 @@ defmodule NodeHelper do
 	@miners [:m1, :m2, :m3, :m4, :m5, :m6, :m7]
 
 	def getPublicKeys do
-		
 		Enum.reduce(@users, [], fn user, acc -> 
 
 		    public_key = NodeCoordinator.get_public_key user
@@ -16,12 +15,10 @@ defmodule NodeHelper do
 
 
 	def get_users do
-		
 		Enum.map(@users, fn x -> Atom.to_string x end)
 	end
 
 	def get_miners do
-		
 		Enum.map(@miners, fn x -> Atom.to_string x end)
 	end
 
@@ -46,12 +43,10 @@ defmodule NodeHelper do
 	end
 
 	def perform_transaction(from, to, amount) do 
-
 		SysConfigs.performTransaction(from, to, amount)
 	end
 
 	def get_pre_data do
-		
 		#Only some miners may be active, so we need the pool where its not there
 		{unconfirmed_tx, _} = Enum.reduce(@miners, {[],100000000000000000}, fn miner,{acc,l} ->
 			uncon_tx = NodeCoordinator.get_unconfirmed_transactions(miner)

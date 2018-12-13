@@ -12,6 +12,12 @@
       margin-bottom: 10;
       border-radius: 5;
     }
+
+    .homeButton{
+      position: absolute;
+      margin-top: 50px;
+      align: right;
+    }
     
   </style>
 </head>
@@ -75,7 +81,9 @@
           }
       </script>
 </div>
-
+<div class ="homeButton">
+      <a href="/"><button type="button" class="btn btn-info btn-lg">Home Screen</button></a>
+</div>
 </head>
 </body>
 </html>

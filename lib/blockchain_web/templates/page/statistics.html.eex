@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <div class = "entire-thing">
+      <div class="top">
+        <style>
+          p.ex1 {
+          margin-top: 60px;
+          width:100%;
+          }
+          .homeButton{
+            position: absolute;
+            margin-top: 50px;
+            margin-left: 100px;
+            align: right;
+          }
+        </style>
+          <% 
+            data = @data
+            line_data = Poison.encode!(data) %>
+          <%= raw Chartkick.line_chart line_data, xtitle: "Time", ytitle: "No of block mined" %>
+       </div>   
+       <div class ="homeButton">
+          <a href="/"><button type="button" class="btn btn-info btn-lg">Home Screen</button></a>
+       </div>
+  </div>
+</html>
+
+

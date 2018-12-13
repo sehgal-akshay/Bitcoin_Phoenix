@@ -11,14 +11,13 @@
     .firstButton {
       position: absolute;
     top: 70%;
-    left: 40%;
+    left: 45%;
     align: center;
     }
-    .secondButton{
-      position: absolute;
-    top: 70%;
-    left: 50%;
-    align: right;
+    .homeButton{
+        position: absolute;
+        margin-top: 20px;
+        align: right;
     }
   </style>
 <body>
@@ -38,7 +37,7 @@
 <div class="firstButton">            
   <button type="button" class="btn btn-info btn-lg" onclick = confirmationScreen()>Submit</button>      
 </div>
-<div class ="secondButton">
+<div class ="homeButton">
 <a href="/"><button type="button" class="btn btn-info btn-lg">Home Screen</button></a>
 </div>
 <script>

@@ -10,6 +10,7 @@ defmodule Initializer do
 		
 		NodeSupervisor.start_link
 		ProcessRegistry.start_link
+		Cache.start_link
 		nodeMap = startusers(@users)
 		minersMap = startminers(@miners)
 		ProcessRegistry.merge nodeMap

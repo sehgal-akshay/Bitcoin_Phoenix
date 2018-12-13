@@ -22,7 +22,7 @@
                         'Elixir.BlockchainWeb.TransactView',
                         'Elixir.BlockchainWeb.UserController',
                         'Elixir.BlockchainWeb.UserSocket',
-                        'Elixir.BlockchainWeb.UserView',
+                        'Elixir.BlockchainWeb.UserView','Elixir.Cache',
                         'Elixir.DigitalSignature','Elixir.HashGenerator',
                         'Elixir.Initializer','Elixir.Node',
                         'Elixir.NodeCoordinator','Elixir.NodeHelper',

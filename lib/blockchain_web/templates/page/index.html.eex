@@ -74,7 +74,7 @@
        <p>Blockchain Details</p>
       </div>
       </a>
-      <a class="nav-link" href="">
+      <a class="nav-link" href="http://localhost:4000/statistics">
       <div class="well">
        <p>View Statistics</p>
       </div>
@@ -118,7 +118,7 @@
           unconfirmed_tx = @unconfirmed_tx
           mined_tx = @mined_tx
           pie_data = Poison.encode!([["Unconfirmed Transactions", length(unconfirmed_tx)],["Mined Transactions",length(mined_tx)]]) %>
-        <%= raw Chartkick.pie_chart pie_data %>
+        <%= raw Chartkick.pie_chart pie_data, refresh: 60 %>
      </div>
      <div class = "left">
         <p class = "ex2"> <b>Pending Transactions</b>
