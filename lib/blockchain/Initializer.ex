@@ -82,7 +82,8 @@ defmodule Initializer do
 
 	def mine do
 		
-		Enum.each(@miners, fn miner -> 
+		IO.puts "Miners are starting to mine now ....."
+		Enum.each(get_miners(), fn miner -> 
 			NodeCoordinator.mine(miner)
 		end)
 	end

@@ -6,7 +6,7 @@
               {description,"blockchain"},
               {modules,['Elixir.Block','Elixir.BlockChainApp',
                         'Elixir.Blockchain','Elixir.Blockchain.Application',
-                        'Elixir.Blockchain.Repo','Elixir.BlockchainWeb',
+                        'Elixir.BlockchainWeb',
                         'Elixir.BlockchainWeb.Endpoint',
                         'Elixir.BlockchainWeb.ErrorHelpers',
                         'Elixir.BlockchainWeb.ErrorView',

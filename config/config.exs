@@ -8,7 +8,7 @@
 use Mix.Config
 
 config :blockchain,
-  ecto_repos: [Blockchain.Repo]
+  ecto_repos: []
 
 # Configures the endpoint
 config :blockchain, BlockchainWeb.Endpoint,

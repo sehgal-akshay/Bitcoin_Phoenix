@@ -13,7 +13,7 @@ defmodule Blockchain.Application do
       # Start the endpoint when the application starts
       BlockchainWeb.Endpoint
       # Starts a worker by calling: Blockchain.Worker.start_link(arg)
-      # {Blockchain.Worker, arg},
+       #{Blockchain.Worker, arg},
     ]
 
     # Task.start(fn -> :timer.sleep(1000); IO.puts("done sleeping") end)

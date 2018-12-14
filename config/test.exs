@@ -10,9 +10,9 @@ config :blockchain, BlockchainWeb.Endpoint,
 config :logger, level: :warn
 
 # Configure your database
-config :blockchain, Blockchain.Repo,
-  username: "postgres",
-  password: "postgres",
-  database: "blockchain_test",
-  hostname: "localhost",
-  pool: Ecto.Adapters.SQL.Sandbox
+#config :blockchain, Blockchain.Repo,
+#  username: "postgres",
+#  password: "postgres",
+#  database: "blockchain_test",
+#  hostname: "localhost",
+#  pool: Ecto.Adapters.SQL.Sandbox

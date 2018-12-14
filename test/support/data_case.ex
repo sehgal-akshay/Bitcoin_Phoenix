@@ -16,7 +16,7 @@ defmodule Blockchain.DataCase do
 
   using do
     quote do
-      alias Blockchain.Repo
+      # alias Blockchain.Repo
 
       import Ecto
       import Ecto.Changeset
@@ -25,15 +25,15 @@ defmodule Blockchain.DataCase do
     end
   end
 
-  setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Blockchain.Repo)
+  # setup tags do
+  #   :ok = Ecto.Adapters.SQL.Sandbox.checkout(Blockchain.Repo)
 
-    unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Blockchain.Repo, {:shared, self()})
-    end
+  #   unless tags[:async] do
+  #     Ecto.Adapters.SQL.Sandbox.mode(Blockchain.Repo, {:shared, self()})
+  #   end
 
-    :ok
-  end
+  #   :ok
+  # end
 
   @doc """
   A helper that transforms changeset errors into a map of messages.

@@ -69,8 +69,8 @@ defmodule NodeHelper do
 	def run_simulation do 
 		extra_users = Enum.to_list(8..108) |> Enum.map(fn i -> i |> Integer.to_string |> String.to_atom end)
 		Initializer.handle_new_users_miners(extra_users, nil)
-		SysConfigs.simulate(extra_users)
 		Initializer.mine()
+		SysConfigs.simulate(extra_users)
 	end
 
 end

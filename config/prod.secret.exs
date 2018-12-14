@@ -12,8 +12,8 @@ config :blockchain, BlockchainWeb.Endpoint,
   secret_key_base: "WWqCW0RYnH/egbMNOxC431ORhkkuaJ0ew7g9mifaMvXeoFO3Za7IOyX/gsPZmmTK"
 
 # Configure your database
-config :blockchain, Blockchain.Repo,
-  username: "postgres",
-  password: "postgres",
-  database: "blockchain_prod",
-  pool_size: 15
+#config :blockchain, Blockchain.Repo,
+#  username: "postgres",
+#  password: "postgres",
+#  database: "blockchain_prod",
+#  pool_size: 15

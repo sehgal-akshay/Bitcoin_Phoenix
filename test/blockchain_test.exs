@@ -1,15 +1,17 @@
 defmodule BlockchainTest do
   use ExUnit.Case
 
+  @users [:a, :b, :c]
+
   setup_all do
 	{:ok, supervisor_pid} = NodeSupervisor.start_link
 	{:ok, registry_pid} = ProcessRegistry.start_link
-	nodeMap = Initializer.startusers([:a, :b, :c]) #Starting with 3 users
+	nodeMap = Initializer.startusers(@users) #Starting with 3 users
 	minersMap = Initializer.startminers([:m1]) #Starting with 1 miner
 	ProcessRegistry.merge nodeMap
 	ProcessRegistry.merge minersMap
 	:timer.sleep 3000
-	Initializer.listen_at_user_nodes()
+	Initializer.listen_at_user_nodes(@users)
 	on_exit fn ->
 	  IO.puts "Test Complete. Stopping supervisor." 
 	  assert_down(registry_pid)    
